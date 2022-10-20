@@ -1,5 +1,9 @@
 package com.project.vehiclerental.model;
 
+import com.project.vehiclerental.model.enums.FuelType;
+import com.project.vehiclerental.model.enums.TransmissionType;
+import com.project.vehiclerental.model.enums.VehicleStatus;
+import com.project.vehiclerental.model.enums.VehicleType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,8 +41,6 @@ public class Vehicle {
     @Column(name = "model", nullable = false)
     private String model;
 
-    // TODO: add vehicle type (enum)
-
     @Column(name = "image_url", nullable = false)
     private String imageURL;
 
@@ -46,7 +48,7 @@ public class Vehicle {
     private String address;
 
     @Column(name = "registration_number", nullable = false)
-    private String registerationNumber;
+    private String registrationNumber;
 
     @Column(name = "color")
     private String color;
@@ -57,11 +59,17 @@ public class Vehicle {
     @Column(name = "number_of_doors")
     private String numberOfDoors;
 
-    // TODO: add transmission type (enum)
+    @Column(name = "vehicle_type")
+    private VehicleType vehicleType;
 
-    // TODO: add fuel type (enum)
+    @Column(name = "transmission_type")
+    private TransmissionType transmissionType;
 
-    // TODO: status (enum)
+    @Column(name = "fuel_type")
+    private FuelType fuelType;
+
+    @Column(name = "vehicle_status")
+    private VehicleStatus vehicleStatus;
 
     @Column(name = "price_per_day", nullable = false)
     @Min(1)
