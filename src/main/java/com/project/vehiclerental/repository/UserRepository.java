@@ -1,4 +1,4 @@
-package com.project.vehiclerental.repositories;
+package com.project.vehiclerental.repository;
 
 import com.project.vehiclerental.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

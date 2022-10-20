@@ -1,8 +1,7 @@
-package com.project.vehiclerental.controllers;
+package com.project.vehiclerental.controller;
 
 import com.project.vehiclerental.model.User;
-import com.project.vehiclerental.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.vehiclerental.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

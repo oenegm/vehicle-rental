@@ -1,11 +1,7 @@
-package com.project.vehiclerental.services;
+package com.project.vehiclerental.service;
 
 import com.project.vehiclerental.model.User;
-import com.project.vehiclerental.repositories.UserRepository;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import com.project.vehiclerental.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
