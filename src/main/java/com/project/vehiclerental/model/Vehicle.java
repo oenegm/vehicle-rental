@@ -19,6 +19,7 @@ import javax.validation.constraints.Min;
 @AllArgsConstructor
 @Table(name = "vehicle")
 public class Vehicle {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -36,7 +37,7 @@ public class Vehicle {
             name = "maker_ID",
             referencedColumnName = "id",
             nullable = false)
-    private Maker maker;
+    private Brand brand;
 
     @Column(name = "model", nullable = false)
     private String model;

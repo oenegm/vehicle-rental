@@ -14,7 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "maker")
-public class Maker {
+public class Brand {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -31,6 +32,6 @@ public class Maker {
     private String imageURL;
 
     // TODO: not sure if mappedBy is correct
-    @OneToMany(mappedBy = "maker", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
     private List<Vehicle> vehicles;
 }
