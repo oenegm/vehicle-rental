@@ -47,10 +47,10 @@ public class Rental {
     private RentalStatus rentalStatus;
 
     @Column(name = "duration", nullable = false)
-    private Double duration;
+    private Integer duration;
 
     @Column(name = "rating", nullable = false)
-    private Double rating;
+    private Float rating;
 
     @Column(name = "cost", nullable = false)
     private Double cost;
