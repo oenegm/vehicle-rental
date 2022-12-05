@@ -1,4 +1,4 @@
-package com.project.vehiclerental.model;
+package com.project.vehiclerental.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 @Setter
@@ -29,8 +28,4 @@ public class Brand {
 
     @Column(name = "image_url", nullable = false)
     private String imageURL;
-
-    // TODO: not sure if mappedBy is correct
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
-    private List<Vehicle> vehicles;
 }

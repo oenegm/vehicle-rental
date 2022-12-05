@@ -1,4 +1,4 @@
-package com.project.vehiclerental.model.enums;
+package com.project.vehiclerental.enums;
 
 public enum RentalStatus {
     REQUESTED,

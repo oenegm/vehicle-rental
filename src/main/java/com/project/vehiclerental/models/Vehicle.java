@@ -1,9 +1,9 @@
-package com.project.vehiclerental.model;
+package com.project.vehiclerental.models;
 
-import com.project.vehiclerental.model.enums.FuelType;
-import com.project.vehiclerental.model.enums.TransmissionType;
-import com.project.vehiclerental.model.enums.VehicleStatus;
-import com.project.vehiclerental.model.enums.VehicleType;
+import com.project.vehiclerental.enums.FuelType;
+import com.project.vehiclerental.enums.TransmissionType;
+import com.project.vehiclerental.enums.VehicleStatus;
+import com.project.vehiclerental.enums.VehicleType;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;

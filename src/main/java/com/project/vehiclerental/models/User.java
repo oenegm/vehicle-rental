@@ -1,6 +1,6 @@
-package com.project.vehiclerental.model;
+package com.project.vehiclerental.models;
 
-import com.project.vehiclerental.model.enums.Gender;
+import com.project.vehiclerental.enums.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

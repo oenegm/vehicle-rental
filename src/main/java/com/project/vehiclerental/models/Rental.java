@@ -1,6 +1,6 @@
-package com.project.vehiclerental.model;
+package com.project.vehiclerental.models;
 
-import com.project.vehiclerental.model.enums.RentalStatus;
+import com.project.vehiclerental.enums.RentalStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
