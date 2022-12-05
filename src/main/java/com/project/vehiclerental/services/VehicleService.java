@@ -1,7 +1,7 @@
-package com.project.vehiclerental.service;
+package com.project.vehiclerental.services;
 
-import com.project.vehiclerental.model.Vehicle;
-import com.project.vehiclerental.repository.VehicleRepository;
+import com.project.vehiclerental.models.Vehicle;
+import com.project.vehiclerental.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +19,7 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
-    public Vehicle getVehicleById(Long id) {
+    public Vehicle findVehicleById(Long id) {
         return vehicleRepository.findById(id).orElse(null);
     }
 
@@ -27,15 +27,12 @@ public class VehicleService {
         return vehicleRepository.save(vehicle);
     }
 
-    public Vehicle updateVehicle(Vehicle vehicle) {
+    //TODO: Implement updateVehicle method
+    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
-    }
-
-    public void deleteAllVehicles() {
-        vehicleRepository.deleteAll();
     }
 }

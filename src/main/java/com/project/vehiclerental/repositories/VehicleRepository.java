@@ -1,6 +1,6 @@
-package com.project.vehiclerental.repository;
+package com.project.vehiclerental.repositories;
 
-import com.project.vehiclerental.model.Vehicle;
+import com.project.vehiclerental.models.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

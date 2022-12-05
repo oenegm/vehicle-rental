@@ -1,7 +1,7 @@
-package com.project.vehiclerental.service;
+package com.project.vehiclerental.services;
 
-import com.project.vehiclerental.model.User;
-import com.project.vehiclerental.repository.UserRepository;
+import com.project.vehiclerental.models.User;
+import com.project.vehiclerental.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,19 +25,19 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public User saveUser(User user){
+        return userRepository.save(user);
+    }
+
+    //TODO: Implement updateUser method
+    public User updateUser(Long id, User user){
+        return userRepository.save(user);
+    }
 
     public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
 
 
-    public User saveUser(User user){
-        return userRepository.save(user);
-    }
-
-
-    public User update(User user){
-        return userRepository.save(user);
-    }
 
 }

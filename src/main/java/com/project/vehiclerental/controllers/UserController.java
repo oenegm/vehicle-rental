@@ -1,58 +1,56 @@
-package com.project.vehiclerental.controller;
+package com.project.vehiclerental.controllers;
 
-import com.project.vehiclerental.model.User;
-import com.project.vehiclerental.service.UserService;
-
+import com.project.vehiclerental.models.User;
+import com.project.vehiclerental.services.UserService;
 import jakarta.validation.Valid;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
-@RequestMapping(("/api/v1/users"))
+@RequestMapping("/api/v1/users")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<?> getUsers() {
+    public ResponseEntity<List<User>> getUsers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllUser());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getUserByID(@PathVariable Long id) {
+    public ResponseEntity<User> findUserByID(@PathVariable Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.findUserById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(userService.saveUser(user));
-
     }
 
-    @PutMapping
-    public ResponseEntity<?> updateUser(@Valid @RequestBody User user) {
+    @PutMapping("{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.update(user));
+                .body(userService.saveUser(user));
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<?> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return ResponseEntity
-                .status(HttpStatus.OK)
+                .status(HttpStatus.NO_CONTENT)
                 .build();
     }
 }
