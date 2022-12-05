@@ -2,9 +2,20 @@ package com.project.vehiclerental.model;
 
 import com.project.vehiclerental.model.enums.RentalStatus;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "rental")
 public class Rental {
 
     @Id
@@ -18,7 +29,6 @@ public class Rental {
             referencedColumnName = "id",
             nullable = false)
     private Vehicle vehicle;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
@@ -49,11 +59,9 @@ public class Rental {
     @Column(name = "duration", nullable = false)
     private Integer duration;
 
-    @Column(name = "rating", nullable = false)
+    @Column(name = "rating")
     private Float rating;
 
     @Column(name = "cost", nullable = false)
-    private Double cost;
-
-
+    private Double cost = vehicle.getPriceByDay() * duration;
 }

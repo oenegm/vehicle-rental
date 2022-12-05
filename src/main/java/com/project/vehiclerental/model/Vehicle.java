@@ -4,13 +4,14 @@ import com.project.vehiclerental.model.enums.FuelType;
 import com.project.vehiclerental.model.enums.TransmissionType;
 import com.project.vehiclerental.model.enums.VehicleStatus;
 import com.project.vehiclerental.model.enums.VehicleType;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
 
 @Entity
 @Setter
@@ -74,7 +75,7 @@ public class Vehicle {
 
     @Column(name = "price_per_day", nullable = false)
     @Min(1)
-    private Integer priceByDay;
+    private Double priceByDay;
 
     @Column(name = "rating")
     private Float rating;

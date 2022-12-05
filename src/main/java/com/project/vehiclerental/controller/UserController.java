@@ -2,11 +2,12 @@ package com.project.vehiclerental.controller;
 
 import com.project.vehiclerental.model.User;
 import com.project.vehiclerental.service.UserService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping(("/api/v1/users"))
@@ -18,12 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping
     public ResponseEntity<?> getUsers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllUser());
     }
-
 
     @GetMapping("{id}")
     public ResponseEntity<?> getUserByID(@PathVariable Long id) {
@@ -31,7 +32,6 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(userService.findUserById(id));
     }
-
 
     @PostMapping
     public ResponseEntity<?> addUser(@Valid @RequestBody User user) {
@@ -52,9 +52,7 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable long id) {
         userService.deleteUser(id);
         return ResponseEntity
-                .status(HttpStatus.OK).
-                build();
-
+                .status(HttpStatus.OK)
+                .build();
     }
-
 }
