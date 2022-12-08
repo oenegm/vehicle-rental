@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "rental")
+@Table(name = "rentals")
 public class Rental {
 
     @Id
@@ -37,13 +37,6 @@ public class Rental {
             nullable = false)
     private User renter;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(
-            name = "owner_ID",
-            referencedColumnName = "id",
-            nullable = false)
-    private User owner;
-
     @Column(name = "request_date", nullable = false)
     private LocalDateTime requestDate;
 
@@ -63,5 +56,10 @@ public class Rental {
     private Float rating;
 
     @Column(name = "cost", nullable = false)
-    private Double cost = vehicle.getPriceByDay() * duration;
+    private Double cost;
+
+    @PrePersist
+    private void setCost() {
+        this.cost = this.vehicle.getPricePerDay() * this.duration;
+    }
 }

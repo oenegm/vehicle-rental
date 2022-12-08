@@ -1,5 +1,6 @@
 package com.project.vehiclerental.services;
 
+import com.project.vehiclerental.exceptions.RentalNotFoundException;
 import com.project.vehiclerental.models.Rental;
 import com.project.vehiclerental.repositories.RentalRepository;
 import org.springframework.stereotype.Service;
@@ -27,9 +28,22 @@ public class RentalService {
         return rentalRepository.save(rental);
     }
 
-    //TODO: Implement updateRental method
+    //TODO: Implement custom exceptions
     public Rental updateRental(Long id, Rental rental) {
-        return rentalRepository.save(rental);
+        Rental oldRental = rentalRepository.findById(id)
+                .orElseThrow(() -> new RentalNotFoundException(id));
+
+        oldRental.setVehicle(rental.getVehicle());
+        oldRental.setRenter(rental.getRenter());
+        oldRental.setRequestDate(rental.getRequestDate());
+        oldRental.setRentDate(rental.getRentDate());
+        oldRental.setReturnDate(rental.getReturnDate());
+        oldRental.setRentalStatus(rental.getRentalStatus());
+        oldRental.setDuration(rental.getDuration());
+        oldRental.setRating(rental.getRating());
+        oldRental.setCost(rental.getCost());
+
+        return rentalRepository.save(oldRental);
     }
 
     public void deleteRental(Long id) {

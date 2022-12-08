@@ -12,7 +12,7 @@ import jakarta.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "brand")
+@Table(name = "brands")
 public class Brand {
 
     @Id

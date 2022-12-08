@@ -20,13 +20,13 @@ public class User {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false)
@@ -38,8 +38,4 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
-
-    @Column(name = "address", nullable = false)
-    private String address;
-
 }

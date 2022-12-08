@@ -18,7 +18,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "vehicle")
+@Table(name = "vehicles")
 public class Vehicle {
 
     @Id
@@ -75,7 +75,7 @@ public class Vehicle {
 
     @Column(name = "price_per_day", nullable = false)
     @Min(1)
-    private Double priceByDay;
+    private Double pricePerDay;
 
     @Column(name = "rating")
     private Float rating;
