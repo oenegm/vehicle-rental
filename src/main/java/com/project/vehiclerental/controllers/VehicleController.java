@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@RestController("/api/v1/vehicles")
+@RestController
+@RequestMapping("/api/v1/vehicles")
 public class VehicleController {
 
     private final VehicleService vehicleService;
@@ -35,7 +36,7 @@ public class VehicleController {
     public ResponseEntity<Vehicle> addVehicle(@Valid @RequestBody Vehicle vehicle) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(vehicleService.addVehicle(vehicle));
+                .body(vehicleService.saveVehicle(vehicle));
     }
 
     @PutMapping("/{id}")

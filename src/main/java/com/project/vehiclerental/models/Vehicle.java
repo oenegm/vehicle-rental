@@ -1,21 +1,23 @@
 package com.project.vehiclerental.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.project.vehiclerental.enums.FuelType;
 import com.project.vehiclerental.enums.TransmissionType;
 import com.project.vehiclerental.enums.VehicleStatus;
 import com.project.vehiclerental.enums.VehicleType;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.Hibernate;
+import java.util.Objects;
 
 
 @Entity
-@Setter
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "vehicles")
@@ -23,33 +25,42 @@ public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "owner_ID",
+            name = "owner_id",
             referencedColumnName = "id",
             nullable = false)
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIncludeProperties("id")
+    @JsonUnwrapped(prefix = "owner_")
     private User owner;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "maker_ID",
+            name = "brand_id",
             referencedColumnName = "id",
             nullable = false)
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIncludeProperties("id")
+    @JsonUnwrapped(prefix = "brand_")
     private Brand brand;
 
-    @Column(name = "model", nullable = false)
+    @Column(name = "model")
     private String model;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "year")
+    private Integer year;
+
+    @Column(name = "image_url")
     private String imageURL;
 
     @Column(name = "address")
     private String address;
 
-    @Column(name = "registration_number", nullable = false)
+    @Column(name = "registration_number")
     private String registrationNumber;
 
     @Column(name = "color")
@@ -73,10 +84,23 @@ public class Vehicle {
     @Column(name = "vehicle_status")
     private VehicleStatus vehicleStatus;
 
-    @Column(name = "price_per_day", nullable = false)
+    @Column(name = "price_per_day")
     @Min(1)
     private Double pricePerDay;
 
     @Column(name = "rating")
     private Float rating;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return id != null && Objects.equals(id, vehicle.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
