@@ -1,5 +1,6 @@
 package com.project.vehiclerental.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.vehiclerental.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,6 +32,7 @@ public class User {
     private String email;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
     @Column(name = "phone_number")

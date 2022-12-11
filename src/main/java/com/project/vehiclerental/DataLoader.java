@@ -23,7 +23,13 @@ public class DataLoader implements ApplicationRunner {
     private final VehicleRepository vehicleRepository;
     private final PasswordEncoder encodePassword;
 
-    public DataLoader(BrandRepository brandRepository, RentalRepository rentalRepository, UserRepository userRepository, VehicleRepository vehicleRepository, PasswordEncoder passwordEncoder) {
+    public DataLoader(
+            BrandRepository brandRepository,
+            RentalRepository rentalRepository,
+            UserRepository userRepository,
+            VehicleRepository vehicleRepository,
+            PasswordEncoder passwordEncoder
+    ) {
         this.brandRepository = brandRepository;
         this.rentalRepository = rentalRepository;
         this.userRepository = userRepository;
