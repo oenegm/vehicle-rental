@@ -1,5 +1,6 @@
 package com.project.vehiclerental.services;
 
+import com.project.vehiclerental.exceptions.BrandNotFoundException;
 import com.project.vehiclerental.models.Brand;
 import com.project.vehiclerental.repositories.BrandRepository;
 import org.springframework.stereotype.Service;
@@ -26,9 +27,15 @@ public class BrandService {
         return brandRepository.save(brand);
     }
 
-    //TODO: Implement updateBrand method
     public Brand updateBrand(Long id, Brand brand) {
-        return brandRepository.save(brand);
+        Brand oldBrand = brandRepository.findById(id)
+                .orElseThrow(() -> new BrandNotFoundException(id));
+
+        oldBrand.setName(brand.getName());
+        oldBrand.setCountry(brand.getCountry());
+        oldBrand.setImageURL(brand.getImageURL());
+
+        return brandRepository.save(oldBrand);
     }
 
     public void deleteBrand(Long id) {

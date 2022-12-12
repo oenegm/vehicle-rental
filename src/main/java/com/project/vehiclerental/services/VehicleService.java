@@ -1,5 +1,6 @@
 package com.project.vehiclerental.services;
 
+import com.project.vehiclerental.exceptions.VehicleNotFoundException;
 import com.project.vehiclerental.models.Vehicle;
 import com.project.vehiclerental.repositories.VehicleRepository;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,32 @@ public class VehicleService {
         return vehicleRepository.findById(id).orElse(null);
     }
 
-    public Vehicle addVehicle(Vehicle vehicle) {
+    public Vehicle saveVehicle(Vehicle vehicle) {
         return vehicleRepository.save(vehicle);
     }
 
-    //TODO: Implement updateVehicle method
+    //TODO: Implement custom exceptions
     public Vehicle updateVehicle(Long id, Vehicle vehicle) {
-        return vehicleRepository.save(vehicle);
+        Vehicle oldVehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(id));
+
+        oldVehicle.setOwner(vehicle.getOwner());
+        oldVehicle.setBrand(vehicle.getBrand());
+        oldVehicle.setModel(vehicle.getModel());
+        oldVehicle.setImageURL(vehicle.getImageURL());
+        oldVehicle.setAddress(vehicle.getAddress());
+        oldVehicle.setRegistrationNumber(vehicle.getRegistrationNumber());
+        oldVehicle.setColor(vehicle.getColor());
+        oldVehicle.setNumberOfSeats(vehicle.getNumberOfSeats());
+        oldVehicle.setNumberOfDoors(vehicle.getNumberOfDoors());
+        oldVehicle.setVehicleType(vehicle.getVehicleType());
+        oldVehicle.setTransmissionType(vehicle.getTransmissionType());
+        oldVehicle.setFuelType(vehicle.getFuelType());
+        oldVehicle.setVehicleStatus(vehicle.getVehicleStatus());
+        oldVehicle.setPricePerDay(vehicle.getPricePerDay());
+        oldVehicle.setRating(vehicle.getRating());
+
+        return vehicleRepository.save(oldVehicle);
     }
 
     public void deleteVehicle(Long id) {
