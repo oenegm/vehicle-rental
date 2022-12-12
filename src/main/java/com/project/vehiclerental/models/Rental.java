@@ -23,7 +23,7 @@ public class Rental {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "vehicle_ID",
             referencedColumnName = "id",
