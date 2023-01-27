@@ -1,19 +1,17 @@
 package com.project.vehiclerental;
 
-import com.project.vehiclerental.models.Brand;
-import com.project.vehiclerental.models.Rental;
-import com.project.vehiclerental.models.User;
-import com.project.vehiclerental.models.Vehicle;
-import com.project.vehiclerental.repositories.BrandRepository;
-import com.project.vehiclerental.repositories.RentalRepository;
-import com.project.vehiclerental.repositories.UserRepository;
-import com.project.vehiclerental.repositories.VehicleRepository;
+import com.project.vehiclerental.entity.Brand;
+import com.project.vehiclerental.entity.Rental;
+import com.project.vehiclerental.entity.User;
+import com.project.vehiclerental.entity.Vehicle;
+import com.project.vehiclerental.repository.BrandRepository;
+import com.project.vehiclerental.repository.RentalRepository;
+import com.project.vehiclerental.repository.UserRepository;
+import com.project.vehiclerental.repository.VehicleRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-
-import java.util.function.Function;
 
 @Component
 public class DataLoader implements ApplicationRunner {
