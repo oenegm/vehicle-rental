@@ -1,9 +1,8 @@
-package com.project.vehiclerental.services;
+package com.project.vehiclerental.service;
 
-import com.project.vehiclerental.exceptions.UserNotFoundException;
-import com.project.vehiclerental.models.User;
-import com.project.vehiclerental.repositories.UserRepository;
-import lombok.AllArgsConstructor;
+import com.project.vehiclerental.exception.UserNotFoundException;
+import com.project.vehiclerental.entity.User;
+import com.project.vehiclerental.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
