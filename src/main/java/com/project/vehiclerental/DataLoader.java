@@ -1,3 +1,4 @@
+/*
 package com.project.vehiclerental;
 
 import com.project.vehiclerental.entity.Brand;
@@ -53,7 +54,7 @@ public class DataLoader implements ApplicationRunner {
                 .model("M3")
                 .year(2022)
                 .build();
-        
+
         brandRepository.save(brand);
         userRepository.save(user);
         vehicleRepository.save(vehicle);
@@ -62,7 +63,8 @@ public class DataLoader implements ApplicationRunner {
                 .renter(user)
                 .vehicle(vehicle)
                 .build();
-        
+
         rentalRepository.save(rental);
     }
 }
+*/

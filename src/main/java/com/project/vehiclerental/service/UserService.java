@@ -1,52 +1,58 @@
 package com.project.vehiclerental.service;
 
+import com.project.vehiclerental.dto.UserDto;
 import com.project.vehiclerental.exception.UserNotFoundException;
 import com.project.vehiclerental.entity.User;
+import com.project.vehiclerental.mapper.UserMapper;
 import com.project.vehiclerental.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public List<UserDto> getAllUser() {
+        return userRepository.findAll()
+                .stream()
+                .parallel()
+                .map(userMapper::toDto)
+                .collect(Collectors.toList());
     }
 
 
-    public List<User> getAllUser() {
-        return userRepository.findAll();
+    public UserDto findUser(Long id) {
+        return userMapper.toDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 
-
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public UserDto saveUser(UserDto userDto){
+        return userMapper.toDto(userRepository.save(userMapper.toEntity(userDto)));
     }
 
-    public User saveUser(User user){
-        return userRepository.save(user);
-    }
-
-    //TODO: Implement custom exceptions
-    public User updateUser(Long id, User user){
-        User oldUser = userRepository.findById(id)
+    public UserDto updateUser(Long id, UserDto userDto){
+        User updatedUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
-        oldUser.setUsername(user.getUsername());
-        oldUser.setName(user.getName());
-        oldUser.setEmail(user.getEmail());
-        oldUser.setPassword(user.getPassword());
-        oldUser.setPhoneNumber(user.getPhoneNumber());
-        oldUser.setGender(user.getGender());
+        BeanUtils.copyProperties(userDto, updatedUser, "id");
 
-        return userRepository.save(oldUser);
+        return userMapper.toDto(userRepository.save(updatedUser));
     }
 
-    public void deleteUser(Long id){
+    public UserDto deleteUser(Long id){
+        User deletedUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+
         userRepository.deleteById(id);
+
+        return userMapper.toDto(deletedUser);
     }
 
 

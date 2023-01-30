@@ -5,7 +5,7 @@ import com.project.vehiclerental.exception.BrandNotFoundException;
 import com.project.vehiclerental.entity.Brand;
 import com.project.vehiclerental.mapper.BrandMapper;
 import com.project.vehiclerental.repository.BrandRepository;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BrandService {
     private final BrandMapper brandMapper;
     private final BrandRepository brandRepository;
