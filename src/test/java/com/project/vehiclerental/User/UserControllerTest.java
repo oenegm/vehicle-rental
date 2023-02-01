@@ -1,4 +1,4 @@
-package com.project.vehiclerental;
+package com.project.vehiclerental.User;
 
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
