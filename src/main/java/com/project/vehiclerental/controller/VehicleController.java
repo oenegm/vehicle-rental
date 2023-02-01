@@ -1,42 +1,42 @@
 package com.project.vehiclerental.controller;
 
+import com.project.vehiclerental.dto.VehicleDto;
 import com.project.vehiclerental.entity.Vehicle;
 import com.project.vehiclerental.service.VehicleService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/vehicles")
 public class VehicleController {
 
     private final VehicleService vehicleService;
 
-    public VehicleController(VehicleService vehicleService) {
-        this.vehicleService = vehicleService;
-    }
-
     @GetMapping
-    public ResponseEntity<List<Vehicle>> getVehicles() {
+    public ResponseEntity<List<VehicleDto>> getVehicles() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(vehicleService.getAllVehicles());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Vehicle> findVehicleById(@PathVariable Long id) {
+    @GetMapping("/{vehicleId}")
+    public ResponseEntity<VehicleDto> findVehicle(@PathVariable("vehicleId") Long vehicleId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(vehicleService.findVehicleById(id));
+                .body(vehicleService.findVehicleById(vehicleId));
     }
 
     @PostMapping
-    public ResponseEntity<Vehicle> addVehicle(@Valid @RequestBody Vehicle vehicle) {
+    public ResponseEntity<VehicleDto> addVehicle(@Valid @RequestBody VehicleDto vehicleDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(vehicleService.saveVehicle(vehicle));
+                .body(vehicleService.saveVehicle(vehicleDto));
     }
 
     @PutMapping("/{id}")
@@ -46,11 +46,11 @@ public class VehicleController {
                 .body(vehicleService.updateVehicle(id, vehicle));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteVehicle(@PathVariable Long id) {
-        vehicleService.deleteVehicle(id);
+    @DeleteMapping("/{vehicleId}")
+    public ResponseEntity<VehicleDto> deleteVehicle(@PathVariable("vehicleId") Long vehcileId) {
+        vehicleService.deleteVehicle(vehcileId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .build();
+                .body(vehicleService.deleteVehicle(vehcileId));
     }
 }

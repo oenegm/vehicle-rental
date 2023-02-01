@@ -1,17 +1,20 @@
 package com.project.vehiclerental.controller;
 
-import com.project.vehiclerental.entity.User;
+import com.project.vehiclerental.dto.UserDto;
+import com.project.vehiclerental.dto.VehicleDto;
 import com.project.vehiclerental.service.UserService;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -19,30 +22,46 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
+    public ResponseEntity<List<UserDto>> getUsers() {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.getAllUser());
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<User> findUserByID(@PathVariable Long id) {
+    @GetMapping("{userId}")
+    public ResponseEntity<UserDto> findUserByID(@PathVariable("userId") Long userId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.findUserById(id));
+                .body(userService.findUser(userId));
     }
 
     @PostMapping
-    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
+    public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(userService.saveUser(user));
+                .body(userService.saveUser(userDto));
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
+    @PutMapping("{userId}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("userId") Long userId, @Valid @RequestBody UserDto userDto) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.updateUser(id, user));
+                .body(userService.updateUser(userId, userDto));
+    }
+
+
+    @PatchMapping(value = "{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UserDto> patchUser(@PathVariable("userId") Long userId, @RequestBody Map<String, UserDto> userDto) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.updateUser(userId, userDto.get("userDto")));
+    }
+
+    @DeleteMapping("{userId}")
+    public ResponseEntity<UserDto> deleteVehicle(@PathVariable("userId") Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(userService.deleteUser(userId));
     }
 }

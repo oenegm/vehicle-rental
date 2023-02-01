@@ -1,58 +1,57 @@
 package com.project.vehiclerental.service;
 
+import com.project.vehiclerental.dto.VehicleDto;
+import com.project.vehiclerental.exception.BrandNotFoundException;
 import com.project.vehiclerental.exception.VehicleNotFoundException;
 import com.project.vehiclerental.entity.Vehicle;
+import com.project.vehiclerental.mapper.VehicleMapper;
 import com.project.vehiclerental.repository.VehicleRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class VehicleService {
 
+    private final VehicleMapper vehicleMapper;
     private final VehicleRepository vehicleRepository;
 
-    public VehicleService(VehicleRepository vehicleRepository) {
-        this.vehicleRepository = vehicleRepository;
+    public List<VehicleDto> getAllVehicles() {
+        return vehicleRepository.findAll()
+                .stream()
+                .map(vehicleMapper::toDto)
+                .collect(Collectors.toList());
     }
 
-    public List<Vehicle> getAllVehicles() {
-        return vehicleRepository.findAll();
+    public VehicleDto findVehicleById(Long id) {
+        return vehicleMapper.toDto(vehicleRepository.findById(id).orElseThrow(() -> new VehicleNotFoundException(id)));
     }
 
-    public Vehicle findVehicleById(Long id) {
-        return vehicleRepository.findById(id).orElse(null);
+    public VehicleDto saveVehicle(VehicleDto vehicleDto) {
+        return vehicleMapper.toDto(
+                vehicleRepository.save(vehicleMapper.toEntity(vehicleDto)));
     }
 
-    public Vehicle saveVehicle(Vehicle vehicle) {
-        return vehicleRepository.save(vehicle);
-    }
-
-    //TODO: Implement custom exceptions
     public Vehicle updateVehicle(Long id, Vehicle vehicle) {
         Vehicle oldVehicle = vehicleRepository.findById(id)
                 .orElseThrow(() -> new VehicleNotFoundException(id));
 
-        oldVehicle.setOwner(vehicle.getOwner());
-        oldVehicle.setBrand(vehicle.getBrand());
-        oldVehicle.setModel(vehicle.getModel());
-        oldVehicle.setImageURL(vehicle.getImageURL());
-        oldVehicle.setAddress(vehicle.getAddress());
-        oldVehicle.setRegistrationNumber(vehicle.getRegistrationNumber());
-        oldVehicle.setColor(vehicle.getColor());
-        oldVehicle.setNumberOfSeats(vehicle.getNumberOfSeats());
-        oldVehicle.setNumberOfDoors(vehicle.getNumberOfDoors());
-        oldVehicle.setVehicleType(vehicle.getVehicleType());
-        oldVehicle.setTransmissionType(vehicle.getTransmissionType());
-        oldVehicle.setFuelType(vehicle.getFuelType());
-        oldVehicle.setVehicleStatus(vehicle.getVehicleStatus());
-        oldVehicle.setPricePerDay(vehicle.getPricePerDay());
-        oldVehicle.setRating(vehicle.getRating());
+        BeanUtils.copyProperties(vehicle, oldVehicle, "id");
 
         return vehicleRepository.save(oldVehicle);
     }
 
-    public void deleteVehicle(Long id) {
-        vehicleRepository.deleteById(id);
+    public VehicleDto deleteVehicle(Long id) {
+        Vehicle deletedVehicle = vehicleRepository.findById(id)
+                .orElseThrow(() -> new VehicleNotFoundException(id));
+
+        vehicleRepository.delete(deletedVehicle);
+
+        return vehicleMapper.toDto(deletedVehicle);
     }
 }
