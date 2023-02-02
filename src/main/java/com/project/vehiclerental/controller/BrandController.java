@@ -5,15 +5,17 @@ import com.project.vehiclerental.service.BrandService;
 import com.project.vehiclerental.entity.Brand;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/v1/brands")
+@RequiredArgsConstructor
 public class BrandController {
+
     private final BrandService brandService;
 
     @GetMapping
@@ -52,3 +54,4 @@ public class BrandController {
                 .body(brandService.deleteBrand(brandId));
     }
 }
+
