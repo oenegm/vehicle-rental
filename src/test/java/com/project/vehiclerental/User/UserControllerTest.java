@@ -1,8 +1,8 @@
 package com.project.vehiclerental.User;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
+
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +28,7 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -33,6 +36,7 @@ public class UserControllerTest {
     private UserService userService;
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testGetUsers() throws Exception {
         List<UserDto> userDtos = Arrays.asList(new UserDto(), new UserDto());
         given(userService.getAllUser()).willReturn(userDtos);
@@ -42,6 +46,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testFindUserByID() throws Exception {
         UserDto userDto = new UserDto();
         given(userService.findUser(1L)).willReturn(userDto);
@@ -51,6 +56,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testAddUser() throws Exception {
         UserDto userDto = new UserDto();
         given(userService.saveUser(userDto)).willReturn(userDto);
@@ -62,6 +68,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testUpdateUser() throws Exception {
         UserDto userDto = new UserDto();
         given(userService.updateUser(1L, userDto)).willReturn(userDto);
@@ -73,6 +80,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testPatchUser() throws Exception {
         UserDto userDto = new UserDto();
         given(userService.updateUser(1L, userDto)).willReturn(userDto);
@@ -84,6 +92,7 @@ public class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testDeleteVehicle() throws Exception {
         UserDto userDto = new UserDto();
         given(userService.deleteUser(1L)).willReturn(userDto);
