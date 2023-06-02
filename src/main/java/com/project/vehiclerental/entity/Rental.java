@@ -3,10 +3,10 @@ package com.project.vehiclerental.entity;
 import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.project.vehiclerental.enums.RentalStatus;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -64,11 +64,6 @@ public class Rental {
 
     @Column(name = "cost")
     private Double cost;
-
-//    @PrePersist
-//    private void setCost() {
-//        this.cost = this.vehicle.getPricePerDay() * this.duration;
-//    }
 
     @Override
     public boolean equals(Object o) {

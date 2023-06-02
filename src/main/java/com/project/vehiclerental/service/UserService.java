@@ -1,17 +1,15 @@
 package com.project.vehiclerental.service;
 
 import com.project.vehiclerental.dto.UserDto;
-import com.project.vehiclerental.exception.UserNotFoundException;
 import com.project.vehiclerental.entity.User;
+import com.project.vehiclerental.exception.UserNotFoundException;
 import com.project.vehiclerental.mapper.UserMapper;
 import com.project.vehiclerental.repository.UserRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,19 +23,19 @@ public class UserService {
                 .stream()
                 .parallel()
                 .map(userMapper::toDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
 
-    public UserDto findUser(Long id) {
+    public UserDto getUser(Long id) {
         return userMapper.toDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id)));
     }
 
-    public UserDto saveUser(UserDto userDto){
+    public UserDto saveUser(UserDto userDto) {
         return userMapper.toDto(userRepository.save(userMapper.toEntity(userDto)));
     }
 
-    public UserDto updateUser(Long id, UserDto userDto){
+    public UserDto updateUser(Long id, UserDto userDto) {
         User updatedUser = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
 
@@ -46,15 +44,9 @@ public class UserService {
         return userMapper.toDto(userRepository.save(updatedUser));
     }
 
-    public UserDto deleteUser(Long id){
-        User deletedUser = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException(id));
-
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
-
-        return userMapper.toDto(deletedUser);
     }
-
 
 
 }

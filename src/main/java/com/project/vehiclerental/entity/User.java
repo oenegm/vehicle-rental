@@ -2,10 +2,10 @@ package com.project.vehiclerental.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.vehiclerental.enums.Gender;
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -43,7 +43,6 @@ public class User {
     @Column(name = "gender")
     private Gender gender;
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 

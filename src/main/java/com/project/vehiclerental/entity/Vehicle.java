@@ -6,10 +6,11 @@ import com.project.vehiclerental.enums.FuelType;
 import com.project.vehiclerental.enums.TransmissionType;
 import com.project.vehiclerental.enums.VehicleStatus;
 import com.project.vehiclerental.enums.VehicleType;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.*;
 import org.hibernate.Hibernate;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Objects;
 
 
