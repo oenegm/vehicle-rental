@@ -1,4 +1,4 @@
-package com.project.vehiclerental.Aspects;
+package com.project.vehiclerental.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Aspect
-public class CleanAssNameAspect {
+public class CleanNameAspect {
     private Logger logger = Logger.getLogger(getClass().getName());
 
-    @Around("execution(* com.project.vehiclerental.services.UserService.saveUser(..))")
+    @Around("execution(* com.project.vehiclerental.service.UserService.saveUser(..))")
     public void logToConsole(ProceedingJoinPoint joinPoint) throws Throwable {
-        List<String> validNames = new ArrayList<String>();
+        List<String> validNames = new ArrayList<>();
         validNames.add("Jamal");
         validNames.add("Johnson");
         validNames.add("Denzel");

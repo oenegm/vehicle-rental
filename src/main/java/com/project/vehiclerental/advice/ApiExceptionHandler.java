@@ -1,4 +1,4 @@
-package com.project.vehiclerental.controller.advice;
+package com.project.vehiclerental.advice;
 
 import com.project.vehiclerental.exception.BrandNotFoundException;
 import com.project.vehiclerental.exception.RentalNotFoundException;
