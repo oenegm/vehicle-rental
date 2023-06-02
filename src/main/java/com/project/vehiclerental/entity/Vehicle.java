@@ -1,7 +1,5 @@
 package com.project.vehiclerental.entity;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.project.vehiclerental.enums.FuelType;
 import com.project.vehiclerental.enums.TransmissionType;
 import com.project.vehiclerental.enums.VehicleStatus;
@@ -11,6 +9,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -25,70 +24,58 @@ public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(
             name = "owner_id",
             referencedColumnName = "id",
-            nullable = false)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIncludeProperties("id")
-    @JsonUnwrapped(prefix = "owner_")
+            nullable = false
+    )
     private User owner;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(
             name = "brand_id",
             referencedColumnName = "id",
-            nullable = false)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIncludeProperties("id")
-    @JsonUnwrapped(prefix = "brand_")
+            nullable = false
+    )
     private Brand brand;
 
-    @Column(name = "model")
+    @OneToMany(mappedBy = "vehicle")
+    private List<Rental> rentals;
+
     private String model;
 
-    @Column(name = "year")
     private Integer year;
 
-    @Column(name = "image_url")
     private String imageURL;
 
-    @Column(name = "address")
     private String address;
 
-    @Column(name = "registration_number")
     private String registrationNumber;
 
-    @Column(name = "color")
     private String color;
 
-    @Column(name = "number_of_seats")
     private String numberOfSeats;
 
-    @Column(name = "number_of_doors")
     private String numberOfDoors;
 
-    @Column(name = "vehicle_type")
+    @Enumerated(EnumType.STRING)
     private VehicleType vehicleType;
 
-    @Column(name = "transmission_type")
+    @Enumerated(EnumType.STRING)
     private TransmissionType transmissionType;
 
-    @Column(name = "fuel_type")
+    @Enumerated(EnumType.STRING)
     private FuelType fuelType;
 
-    @Column(name = "vehicle_status")
+    @Enumerated(EnumType.STRING)
     private VehicleStatus vehicleStatus;
 
-    @Column(name = "price_per_day")
     @Min(1)
     private Double pricePerDay;
 
-    @Column(name = "rating")
     private Float rating;
 
     @Override

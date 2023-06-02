@@ -1,7 +1,5 @@
 package com.project.vehiclerental.entity;
 
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.project.vehiclerental.enums.RentalStatus;
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -24,45 +22,35 @@ public class Rental {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(
             name = "vehicle_id",
             referencedColumnName = "id",
-            nullable = false)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIncludeProperties("id")
-    @JsonUnwrapped(prefix = "vehicle_")
+            nullable = false
+    )
     private Vehicle vehicle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(
             name = "renter_id",
             referencedColumnName = "id",
-            nullable = false)
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @JsonIncludeProperties("id")
-    @JsonUnwrapped(prefix = "renter_")
+            nullable = false
+    )
     private User renter;
 
-    @Column(name = "request_date")
     private LocalDateTime requestDate;
 
-    @Column(name = "rent_date")
     private LocalDateTime rentDate;
 
-    @Column(name = "return_date")
     private LocalDateTime returnDate;
 
-    @Column(name = "rental_status")
+    @Enumerated(EnumType.STRING)
     private RentalStatus rentalStatus;
 
-    @Column(name = "duration")
     private Integer duration;
 
-    @Column(name = "rating")
     private Float rating;
 
-    @Column(name = "cost")
     private Double cost;
 
     @Override

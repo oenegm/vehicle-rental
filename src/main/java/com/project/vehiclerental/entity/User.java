@@ -1,12 +1,12 @@
 package com.project.vehiclerental.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.vehiclerental.enums.Gender;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -23,27 +23,30 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", unique = true)
+    @ManyToOne
+    private Role role;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Vehicle> ownedVehicles;
+
+    @OneToMany(mappedBy = "renter")
+    private List<Rental> rentals;
+
+    @Column(unique = true)
     private String username;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "email", unique = true)
+    @Column(unique = true)
     private String email;
 
-    @Column(name = "password")
-    @JsonIgnore
     private String password;
 
-    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
     private Gender gender;
 
-    @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @Override

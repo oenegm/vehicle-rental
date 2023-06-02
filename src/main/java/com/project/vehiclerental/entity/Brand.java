@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -18,17 +19,17 @@ public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @OneToMany
+    private List<Vehicle> vehicles;
+
     private String name;
 
-    @Column(name = "country")
     private String country;
 
-    @Column(name = "image_url")
     private String imageURL;
+
 
     @Override
     public boolean equals(Object o) {
