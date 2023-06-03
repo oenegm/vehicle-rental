@@ -3,9 +3,7 @@ package com.project.vehiclerental.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,13 +19,13 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "roles_privileges",
             joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private Set<Authority> authorities;
+    private List<Authority> authorities;
 
     @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    private List<User> users;
 }

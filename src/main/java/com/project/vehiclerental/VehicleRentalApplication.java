@@ -1,11 +1,11 @@
 package com.project.vehiclerental;
 
-import com.project.vehiclerental.entity.Brand;
 import com.project.vehiclerental.entity.Authority;
+import com.project.vehiclerental.entity.Brand;
 import com.project.vehiclerental.entity.Role;
 import com.project.vehiclerental.entity.User;
-import com.project.vehiclerental.repository.BrandRepository;
 import com.project.vehiclerental.repository.AuthorityRepository;
+import com.project.vehiclerental.repository.BrandRepository;
 import com.project.vehiclerental.repository.RoleRepository;
 import com.project.vehiclerental.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
@@ -37,7 +36,6 @@ public class VehicleRentalApplication {
             RoleRepository roleRepository,
             AuthorityRepository authorityRepository
     ) {
-        // TODO: fix the issue of the application not starting
         return args -> {
             Brand brand = Brand.builder()
                     .name("BMW")
@@ -46,39 +44,50 @@ public class VehicleRentalApplication {
                     .build();
             brandRepository.save(brand);
 
-            Authority readAuthority = authorityRepository.save(
+            authorityRepository.save(
                     Authority.builder()
-                    .name("READ")
-                    .build()
+                            .name("READ")
+                            .build()
             );
-            Authority writeAuthority = authorityRepository.save(
+            authorityRepository.save(
                     Authority.builder()
-                    .name("WRITE")
-                    .build()
+                            .name("WRITE")
+                            .build()
             );
 
-            Role adminRole = roleRepository.save(
+            roleRepository.save(
                     Role.builder()
-                    .name("ROLE_ADMIN")
-                    .authorities(Set.of(readAuthority, writeAuthority))
-                    .build()
+                            .name("ROLE_ADMIN")
+                            .authorities(authorityRepository.findAll())
+                            .build()
             );
-            Role  userRole = roleRepository.save(
+            roleRepository.save(
                     Role.builder()
-                    .name("ROLE_USER")
-                    .authorities(Set.of(readAuthority))
-                    .build()
+                            .name("ROLE_USER")
+                            .authorities(
+                                    List.of(
+                                            authorityRepository.findByName("READ")
+                                                    .orElseThrow(() -> new RuntimeException("Authority not found"))
+                                    )
+                            )
+                            .build()
             );
 
             User admin = User.builder()
                     .username("admin")
                     .password("123456")
-                    .role(adminRole)
+                    .role(
+                            roleRepository.findByName("ROLE_ADMIN")
+                                    .orElseThrow(() -> new RuntimeException("Role not found"))
+                    )
                     .build();
             User user = User.builder()
                     .username("oenegm")
                     .password("123456")
-                    .role(userRole)
+                    .role(
+                            roleRepository.findByName("ROLE_USER")
+                                    .orElseThrow(() -> new RuntimeException("Role not found"))
+                    )
                     .build();
             userRepository.saveAll(List.of(admin, user));
         };
