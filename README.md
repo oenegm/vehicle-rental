@@ -8,8 +8,12 @@ deply to docher and start using right away
 
 ```shell
 cp target/vehicle-renter-0.0.1-SNAPSHOT.jar docker
+```
+
+```shell
 cd docker
 ```
+
 
 ```shell
 docker-compose up
