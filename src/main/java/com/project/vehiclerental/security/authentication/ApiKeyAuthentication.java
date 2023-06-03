@@ -15,8 +15,8 @@ import java.util.Collections;
 @AllArgsConstructor
 public class ApiKeyAuthentication implements Authentication {
 
-    private boolean authenticated;
     private final String key;
+    private boolean authenticated;
 
     @Override
     public boolean isAuthenticated() {

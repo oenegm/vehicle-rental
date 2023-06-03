@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Set;
 
 @AllArgsConstructor
 public class SecurityUser implements UserDetails {
@@ -24,10 +25,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return user.getRole().getAuthorities()
-                .stream()
-                .map(SecurityAuthority::new)
-                .toList();
+        return Set.of(new SecurityRole(user.getRole()));
     }
 
     @Override

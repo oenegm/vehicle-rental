@@ -19,13 +19,6 @@ public class Role {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "roles_privileges",
-            joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
-
     @OneToMany(mappedBy = "role")
     private List<User> users;
 }

@@ -30,11 +30,11 @@ public class ApiKeyFilter extends OncePerRequestFilter {
 
         String requestKey = request.getHeader("x-api-key");
 
-        if (requestKey == null || "null".equals(requestKey)) {
+        if (requestKey == null || "null" .equals(requestKey)) {
             filterChain.doFilter(request, response);
         }
 
-        var apiKeyAuthentication = new ApiKeyAuthentication(false, requestKey);
+        var apiKeyAuthentication = new ApiKeyAuthentication(requestKey, false);
 
         try {
             var authentication = manager.authenticate(apiKeyAuthentication);

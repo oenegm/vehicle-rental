@@ -1,10 +1,8 @@
 package com.project.vehiclerental;
 
-import com.project.vehiclerental.entity.Authority;
 import com.project.vehiclerental.entity.Brand;
 import com.project.vehiclerental.entity.Role;
 import com.project.vehiclerental.entity.User;
-import com.project.vehiclerental.repository.AuthorityRepository;
 import com.project.vehiclerental.repository.BrandRepository;
 import com.project.vehiclerental.repository.RoleRepository;
 import com.project.vehiclerental.repository.UserRepository;
@@ -15,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class VehicleRentalApplication {
             UserRepository userRepository,
             BrandRepository brandRepository,
             RoleRepository roleRepository,
-            AuthorityRepository authorityRepository
+            PasswordEncoder passwordEncoder
     ) {
         return args -> {
             Brand brand = Brand.builder()
@@ -44,48 +43,31 @@ public class VehicleRentalApplication {
                     .build();
             brandRepository.save(brand);
 
-            authorityRepository.save(
-                    Authority.builder()
-                            .name("READ")
-                            .build()
-            );
-            authorityRepository.save(
-                    Authority.builder()
-                            .name("WRITE")
-                            .build()
-            );
 
             roleRepository.save(
                     Role.builder()
-                            .name("ROLE_ADMIN")
-                            .authorities(authorityRepository.findAll())
+                            .name("ADMIN")
                             .build()
             );
             roleRepository.save(
                     Role.builder()
-                            .name("ROLE_USER")
-                            .authorities(
-                                    List.of(
-                                            authorityRepository.findByName("READ")
-                                                    .orElseThrow(() -> new RuntimeException("Authority not found"))
-                                    )
-                            )
+                            .name("USER")
                             .build()
             );
 
             User admin = User.builder()
                     .username("admin")
-                    .password("123456")
+                    .password(passwordEncoder.encode("123456"))
                     .role(
-                            roleRepository.findByName("ROLE_ADMIN")
+                            roleRepository.findByName("ADMIN")
                                     .orElseThrow(() -> new RuntimeException("Role not found"))
                     )
                     .build();
             User user = User.builder()
                     .username("oenegm")
-                    .password("123456")
+                    .password(passwordEncoder.encode("123456"))
                     .role(
-                            roleRepository.findByName("ROLE_USER")
+                            roleRepository.findByName("USER")
                                     .orElseThrow(() -> new RuntimeException("Role not found"))
                     )
                     .build();
