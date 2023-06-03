@@ -1,6 +1,7 @@
 package com.project.vehiclerental.security;
 
 import com.project.vehiclerental.repository.UserRepository;
+import com.project.vehiclerental.security.domain.SecurityUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

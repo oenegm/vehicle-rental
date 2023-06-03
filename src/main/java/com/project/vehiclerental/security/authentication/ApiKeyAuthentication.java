@@ -13,19 +13,19 @@ import java.util.Collections;
 @Getter
 @Setter
 @AllArgsConstructor
-public class CustomAuthentication implements Authentication {
+public class ApiKeyAuthentication implements Authentication {
 
-    private final boolean authentication;
+    private boolean authenticated;
     private final String key;
 
     @Override
     public boolean isAuthenticated() {
-        return authentication;
+        return authenticated;
     }
 
     @Override
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
-        // Not implemented
+        this.authenticated = isAuthenticated;
     }
 
     @Override

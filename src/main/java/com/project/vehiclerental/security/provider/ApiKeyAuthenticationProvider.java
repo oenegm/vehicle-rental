@@ -1,26 +1,25 @@
 package com.project.vehiclerental.security.provider;
 
-import com.project.vehiclerental.security.authentication.CustomAuthentication;
-import org.springframework.beans.factory.annotation.Value;
+import com.project.vehiclerental.security.authentication.ApiKeyAuthentication;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 
-@Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+@RequiredArgsConstructor
+public class ApiKeyAuthenticationProvider implements AuthenticationProvider {
 
-    @Value("${secret.api.key}")
-    private String key;
+    private final String key;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        CustomAuthentication customAuthentication = (CustomAuthentication) authentication;
+        ApiKeyAuthentication apiKeyAuthentication = (ApiKeyAuthentication) authentication;
 
-        String providedKey = customAuthentication.getKey();
+        String providedKey = apiKeyAuthentication.getKey();
         if (key.equals(providedKey)) {
-            return new CustomAuthentication(true, null);
+            authentication.setAuthenticated(true);
+            return authentication;
         }
 
         throw new BadCredentialsException("invalid key");
@@ -28,6 +27,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return CustomAuthentication.class.equals(authentication);
+        return ApiKeyAuthentication.class.equals(authentication);
     }
 }

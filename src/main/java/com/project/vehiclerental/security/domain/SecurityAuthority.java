@@ -1,4 +1,4 @@
-package com.project.vehiclerental.security;
+package com.project.vehiclerental.security.domain;
 
 import com.project.vehiclerental.entity.Authority;
 import lombok.AllArgsConstructor;
