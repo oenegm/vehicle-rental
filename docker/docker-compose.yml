@@ -2,7 +2,7 @@ services:
   app:
     image: 'vehicle-renter:latest'
     build:
-      context: .
+      context: docker
     container_name: app
     depends_on:
       - db
@@ -12,7 +12,7 @@ services:
       - DB_PASSWORD=postgres
       - API_KEY=secret
     ports:
-      - "8081:8080"
+      - "8080:8080"
   db:
     image: postgres
     container_name: postgres
