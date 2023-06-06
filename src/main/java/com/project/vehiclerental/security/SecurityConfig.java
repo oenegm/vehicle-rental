@@ -21,10 +21,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
+                .mvcMatcher("/api/**")
                 .httpBasic().and()
                 .addFilterBefore(new ApiKeyFilter(key), BasicAuthenticationFilter.class)
-                .authorizeRequests()
-                .anyRequest().authenticated().and()
+                .authorizeRequests(auth -> auth
+                        .anyRequest().authenticated()
+                )
                 .build();
     }
 
