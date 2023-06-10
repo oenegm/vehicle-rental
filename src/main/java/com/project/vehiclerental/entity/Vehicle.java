@@ -7,8 +7,8 @@ import com.project.vehiclerental.enums.VehicleType;
 import lombok.*;
 import org.hibernate.Hibernate;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import java.util.List;
 import java.util.Objects;
 

@@ -2,7 +2,7 @@ package com.project.vehiclerental.service;
 
 import com.project.vehiclerental.dto.UserDto;
 import com.project.vehiclerental.entity.User;
-import com.project.vehiclerental.exception.UserNotFoundException;
+import com.project.vehiclerental.advice.exception.UserNotFoundException;
 import com.project.vehiclerental.mapper.UserMapper;
 import com.project.vehiclerental.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

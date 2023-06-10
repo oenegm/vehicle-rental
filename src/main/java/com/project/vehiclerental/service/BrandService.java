@@ -2,7 +2,7 @@ package com.project.vehiclerental.service;
 
 import com.project.vehiclerental.dto.BrandDto;
 import com.project.vehiclerental.entity.Brand;
-import com.project.vehiclerental.exception.BrandNotFoundException;
+import com.project.vehiclerental.advice.exception.BrandNotFoundException;
 import com.project.vehiclerental.mapper.BrandMapper;
 import com.project.vehiclerental.repository.BrandRepository;
 import lombok.RequiredArgsConstructor;

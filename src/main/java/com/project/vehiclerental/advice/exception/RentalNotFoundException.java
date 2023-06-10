@@ -1,4 +1,4 @@
-package com.project.vehiclerental.exception;
+package com.project.vehiclerental.advice.exception;
 
 public class RentalNotFoundException extends RuntimeException {
 

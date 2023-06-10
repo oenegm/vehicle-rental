@@ -2,7 +2,7 @@ package com.project.vehiclerental.service;
 
 import com.project.vehiclerental.dto.VehicleDto;
 import com.project.vehiclerental.entity.Vehicle;
-import com.project.vehiclerental.exception.VehicleNotFoundException;
+import com.project.vehiclerental.advice.exception.VehicleNotFoundException;
 import com.project.vehiclerental.mapper.VehicleMapper;
 import com.project.vehiclerental.repository.VehicleRepository;
 import lombok.RequiredArgsConstructor;

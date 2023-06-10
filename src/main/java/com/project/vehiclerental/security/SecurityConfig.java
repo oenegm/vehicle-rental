@@ -4,15 +4,14 @@ import com.project.vehiclerental.security.filter.ApiKeyFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfig {
 
     @Value("${secret.api.key}")
@@ -20,14 +19,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .mvcMatcher("/api/**")
-                .httpBasic().and()
+        http.httpBasic(Customizer.withDefaults())
                 .addFilterBefore(new ApiKeyFilter(key), BasicAuthenticationFilter.class)
-                .authorizeRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth
                         .anyRequest().authenticated()
-                )
-                .build();
+                );
+        return http.build();
     }
 
     @Bean
