@@ -2,10 +2,10 @@ package com.project.vehiclerental.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vehiclerental.enums.RentalStatus;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-import javax.validation.constraints.Future;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
