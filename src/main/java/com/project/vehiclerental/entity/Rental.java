@@ -16,7 +16,6 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "rentals")
 public class Rental {
 
     @Id
