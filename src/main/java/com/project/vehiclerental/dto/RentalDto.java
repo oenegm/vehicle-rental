@@ -2,10 +2,10 @@ package com.project.vehiclerental.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.project.vehiclerental.enums.RentalStatus;
-import jakarta.validation.constraints.Future;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,14 +22,14 @@ public class RentalDto implements Serializable {
     @NotNull
     private UserDto renter;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime requestDate;
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime rentDate;
 
     @Future
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss'Z'")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'")
     private LocalDateTime returnDate;
 
     private RentalStatus rentalStatus;

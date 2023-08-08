@@ -1,8 +1,8 @@
-package com.project.vehiclerental.exception;
+package com.project.vehiclerental.advice.exception;
 
 public class RentalNotFoundException extends RuntimeException {
 
     public RentalNotFoundException(Long id) {
-        super("Rental not found with id: " + id);
+        super("rental not found with id: " + id);
     }
 }

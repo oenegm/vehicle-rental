@@ -1,8 +1,8 @@
-package com.project.vehiclerental.exception;
+package com.project.vehiclerental.advice.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
     public UserNotFoundException(Long id) {
-        super("User not found with id: " + id);
+        super("user not found with id: " + id);
     }
 }
