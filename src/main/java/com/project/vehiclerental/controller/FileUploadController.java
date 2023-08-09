@@ -39,7 +39,8 @@ public class FileUploadController {
         }
         List<String> allowedFileExtensions = new ArrayList<>(Arrays.asList("pdf", "txt", "epub", "csv", "png", "jpg", "jpeg", "srt"));
 
-        //refer to goofy ass s3impl class for why this shit is here
+        //again... FileNameUtils shit
+        //TODO: make an actual todo to clean this up
         String[] splits = multipartFile.getOriginalFilename().split("\\.");
         String fileExtension = splits[splits.length - 1];
 

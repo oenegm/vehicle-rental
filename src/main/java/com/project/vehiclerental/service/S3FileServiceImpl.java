@@ -41,7 +41,7 @@ public class S3FileServiceImpl implements FileService {
         PutObjectRequest request = new PutObjectRequest(bucketName, fileName, file);
         ObjectMetadata metadata = new ObjectMetadata();
 
-        //goofy ass way to get file extension
+        //goofy ass way to get file extension cause FileNameUtils is apparently deprecated
         String[] splits = multipartFile.getOriginalFilename().split("\\.");
         String fileExtension = splits[splits.length - 1];
 
