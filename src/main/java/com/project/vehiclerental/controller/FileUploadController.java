@@ -1,13 +1,13 @@
 package com.project.vehiclerental.controller;
 
 
+import com.project.vehiclerental.advice.exception.FileDownloadException;
+import com.project.vehiclerental.advice.exception.FileEmptyException;
+import com.project.vehiclerental.advice.exception.FileUploadException;
 import com.project.vehiclerental.entity.APIResponse;
-import com.project.vehiclerental.exception.FileDownloadException;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
-import com.project.vehiclerental.exception.FileEmptyException;
-import com.project.vehiclerental.exception.FileUploadException;
 import com.project.vehiclerental.service.FileService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

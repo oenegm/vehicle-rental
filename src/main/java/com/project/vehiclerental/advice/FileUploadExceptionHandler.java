@@ -2,9 +2,9 @@ package com.project.vehiclerental.advice;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
-import com.project.vehiclerental.exception.FileDownloadException;
-import com.project.vehiclerental.exception.FileEmptyException;
-import com.project.vehiclerental.exception.SpringBootFileUploadException;
+import com.project.vehiclerental.advice.exception.FileDownloadException;
+import com.project.vehiclerental.advice.exception.FileEmptyException;
+import com.project.vehiclerental.advice.exception.SpringBootFileUploadException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ import java.io.IOException;
 public class FileUploadExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value
-            = { FileEmptyException.class})
+            = {FileEmptyException.class})
     protected ResponseEntity<Object> handleFileEmptyException(
             FileEmptyException ex, WebRequest request) {
         String bodyOfResponse = ex.getMessage();

@@ -2,7 +2,7 @@ package com.project.vehiclerental.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
-import com.project.vehiclerental.exception.FileDownloadException;
+import com.project.vehiclerental.advice.exception.FileDownloadException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
