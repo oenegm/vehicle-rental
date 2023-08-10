@@ -12,15 +12,14 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "brands")
 public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name="id")
     private Long id;
 
-    @Column(name = "name")
+    @Column(name="name", unique = true)
     private String name;
 
     @Column(name = "country")

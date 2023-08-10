@@ -2,13 +2,12 @@ package com.project.vehiclerental.controller;
 
 import com.project.vehiclerental.dto.BrandDto;
 import com.project.vehiclerental.service.BrandService;
-import com.project.vehiclerental.entity.Brand;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -40,18 +39,21 @@ public class BrandController {
     }
 
     @PutMapping("{brandId}")
-    public ResponseEntity<BrandDto> updateBrand(@PathVariable("brandId") Long brandId, @Valid @RequestBody BrandDto brandDto) {
+    public ResponseEntity<BrandDto> updateBrand(
+            @PathVariable("brandId") Long brandId,
+            @Valid @RequestBody BrandDto brandDto
+    ) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(brandService.updateBrand(brandId, brandDto));
     }
 
     @DeleteMapping("{brandId}")
-    public ResponseEntity<BrandDto> deleteBrand(@PathVariable("brandId") long brandId) {
-
+    public ResponseEntity<Void> deleteBrand(@PathVariable("brandId") long brandId) {
+        brandService.deleteBrand(brandId);
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
-                .body(brandService.deleteBrand(brandId));
+                .build();
     }
 }
 

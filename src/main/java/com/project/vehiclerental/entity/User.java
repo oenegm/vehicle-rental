@@ -3,6 +3,7 @@ package com.project.vehiclerental.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.vehiclerental.enums.Gender;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.Hibernate;
 
@@ -15,31 +16,36 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name="id")
     private Long id;
 
+    @NotBlank(message = "Username is required")
     @Column(name = "username", unique = true)
     private String username;
 
+    @NotBlank(message = "Name is required")
     @Column(name = "name")
     private String name;
 
+    @NotBlank(message = "Email is required")
     @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "password")
     @JsonIgnore
+    @NotBlank(message = "Password is required")
+    @Column(name = "password")
     private String password;
 
+    @NotBlank(message = "Phone number is required")
     @Column(name = "phone_number")
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
+    @NotBlank(message = "Gender is required")
     @Column(name = "gender")
     private Gender gender;
 

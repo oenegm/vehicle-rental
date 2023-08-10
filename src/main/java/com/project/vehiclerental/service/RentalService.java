@@ -1,7 +1,9 @@
 package com.project.vehiclerental.service;
 
-import com.project.vehiclerental.exception.RentalNotFoundException;
+import com.project.vehiclerental.dto.RentalDto;
 import com.project.vehiclerental.entity.Rental;
+import com.project.vehiclerental.advice.exception.RentalNotFoundException;
+import com.project.vehiclerental.mapper.RentalMapper;
 import com.project.vehiclerental.repository.RentalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -14,26 +16,37 @@ import java.util.List;
 public class RentalService {
 
     private final RentalRepository rentalRepository;
+    private final RentalMapper rentalMapper;
 
-    public List<Rental> getAllRentals() {
-        return rentalRepository.findAll();
+    public List<RentalDto> getAllRentals() {
+        return rentalRepository.findAll()
+                .stream().parallel()
+                .map(rentalMapper::toDto)
+                .toList();
     }
 
-    public Rental findRentalById(Long id) {
-        return rentalRepository.findById(id).orElse(null);
+    public RentalDto findRentalById(Long id) {
+        return rentalMapper.toDto(
+                rentalRepository.findById(id)
+                        .orElseThrow(() -> new RentalNotFoundException(id))
+        );
     }
 
-    public Rental saveRental(Rental rental) {
-        return rentalRepository.save(rental);
+    public RentalDto saveRental(RentalDto rentalDto) {
+        return rentalMapper.toDto(
+                rentalRepository.save(
+                        rentalMapper.toEntity(rentalDto)
+                )
+        );
     }
 
-    public Rental updateRental(Long id, Rental rental) {
+    public RentalDto updateRental(Long id, RentalDto rentalDto) {
         Rental oldRental = rentalRepository.findById(id)
                 .orElseThrow(() -> new RentalNotFoundException(id));
 
-        BeanUtils.copyProperties(rental, oldRental, "id");
+        BeanUtils.copyProperties(rentalDto, oldRental, "id");
 
-        return rentalRepository.save(oldRental);
+        return rentalMapper.toDto(rentalRepository.save(oldRental));
     }
 
     public void deleteRental(Long id) {
