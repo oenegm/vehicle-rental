@@ -1,2 +1,26 @@
-Developing a Vehicle Rental app using Java and the Spring framework, connecting vehicle owners with potential renters.
-Designing and implementing backend functionality, including data persistence, RESTful APIs, and security using Spring Boot, Spring Web, Spring Data, Spring Security, and PostgreSQL.
+# vehicle-rental
+
+depOly to docker and start using right away
+
+```shell
+./mvnw clean package -DskipTests
+```
+
+```shell
+cp target/vehicle-renter-0.0.1-SNAPSHOT.jar docker
+```
+
+```shell
+cd docker
+```
+
+
+```shell
+docker-compose up
+```
+
+
+port 8081 is set to be forwarded to the Spring Boot app
+port 5332 is set for the PostgreSQL database
+
+you can test it by calling GET http://localhost:8081/api/v1/brands 

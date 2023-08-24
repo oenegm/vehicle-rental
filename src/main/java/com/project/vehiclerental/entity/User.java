@@ -8,6 +8,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -52,6 +53,15 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    private Role role;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Vehicle> ownedVehicles;
+
+    @OneToMany(mappedBy = "renter")
+    private List<Rental> rentals;
 
     @Override
     public boolean equals(Object o) {

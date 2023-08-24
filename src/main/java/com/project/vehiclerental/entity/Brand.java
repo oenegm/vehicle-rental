@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.Hibernate;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,9 @@ public class Brand {
 
     @Column(name = "image_url")
     private String imageURL;
+
+    @OneToMany
+    private List<Vehicle> vehicles;
 
     @Override
     public boolean equals(Object o) {
